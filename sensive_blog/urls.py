@@ -11,7 +11,7 @@ urlpatterns = [
     path('post/<slug:slug>', views.post_detail, name='post_detail'),
     path('tag/<slug:tag_title>', views.tag_filter, name='tag_filter'),
     path('contacts/', views.contacts, name='contacts'),
-    path('', views.index, name='index'),
     path('__debug__/', include(debug_toolbar.urls)),
+    path('', views.index, name='index'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

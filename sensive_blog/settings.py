@@ -7,7 +7,7 @@ env.read_env()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', [])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', ["127.0.0.1", "localhost",])
 
 SECRET_KEY = env.str('SECRET_KEY', 'REPLACE_ME')
 
@@ -29,10 +29,10 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'sensive_blog.urls'
@@ -42,6 +42,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 STATIC_ROOT = ''
+
+INTERNAL_IPS = ['127.0.0.1', ]
 
 TEMPLATES = [
     {
@@ -84,10 +86,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -102,7 +100,3 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-def show_toolbar(request):
-    return True
-SHOW_TOOLBAR_CALLBACK = show_toolbar
