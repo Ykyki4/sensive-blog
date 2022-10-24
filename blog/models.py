@@ -58,9 +58,14 @@ class Post(models.Model):
         verbose_name = 'пост'
         verbose_name_plural = 'посты'
 
+
 class TagQuerySet(models.QuerySet):
     def popular(self):
-        return self.annotate(related_posts=Count('posts', distinct=True)).order_by('-related_posts')
+        return self.posts_count().order_by('-related_posts')
+
+    def posts_count(self):
+        return self.annotate(related_posts=Count('posts'))
+
 
 class Tag(models.Model):
     title = models.CharField('Тег', max_length=20, unique=True)
